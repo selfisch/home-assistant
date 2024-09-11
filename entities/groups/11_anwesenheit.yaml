@@ -1,0 +1,6 @@
+anwesenheit_devices:
+  name: Anwesenheit
+  entities:
+    - device_tracker.pixel_6
+    - device_tracker.pixel_7
+    - input_select.anwesenheit
