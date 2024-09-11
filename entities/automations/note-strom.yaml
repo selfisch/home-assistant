@@ -1,0 +1,14 @@
+- alias: Telegraminfo PV Produktion für 15 Minuten über 2000W
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.e3dc_solar_power
+      above: 2000
+      for:
+        minutes: 5
+  action:
+    - service: notify.timbo_admin_gruppe
+      data:
+        title: '*PV Produktion*'
+        message: 'Die PV Produktion ist seit 15 Minuten über 1000W. 
+                  Aktuell bei {{ states("sensor.e3dc_solar_power") }}W. 
+                  Der Verbrauch liegt aktuell bei {{ states("sensor.e3dc_power_consumption_house") }}W.'

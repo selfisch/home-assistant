@@ -1,0 +1,137 @@
+automation: !include_dir_merge_list entities/automations/
+
+binary_sensor: !include_dir_merge_list entities/binary_sensor/
+
+command_line: !include_dir_merge_list entities/command_line/
+
+cover: !include_dir_merge_list entities/cover/
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+homeassistant:
+  customize: !include_dir_merge_named entities/customize/
+  customize_glob: !include_dir_merge_named entities/customize_glob/
+
+group: !include_dir_merge_named entities/groups/
+
+http:
+  #base_url: !secret hass_url
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - !secret trusted_proxies
+
+input_number: !include_dir_merge_named entities/input_number/
+
+input_select: !include_dir_merge_named entities/input_select/
+
+input_datetime: !include_dir_merge_named entities/input_datetime/
+
+knx:
+  expose: !include expose.yaml
+  event:
+    - address:
+        - !secret kns_event_addresses_1
+    - address:
+        - !secret kns_event_addresses_2
+      type: scene_number
+    - address:
+        - !secret kns_event_addresses_3
+  binary_sensor: !include_dir_merge_list entities/binary_sensor_knx/
+  climate: !include_dir_merge_list entities/climate_knx/
+  cover: !include_dir_merge_list entities/cover_knx/
+  light: !include_dir_merge_list entities/light_knx/
+  scene: !include_dir_merge_list entities/scene_knx/
+  sensor: !include_dir_merge_list entities/sensor_knx/
+  switch: !include_dir_merge_list entities/switch_knx/
+
+light: !include_dir_merge_list entities/light/
+
+lovelace:
+  mode: yaml
+  resources:
+    # https://github.com/GeorgeSG/lovelace-time-picker-card
+    - type: module
+      url: /local/time-picker-card.js
+    # https://github.com/htmltiger/numberbox-card
+    - type: module
+      url: /local/numberbox-card.js?v=1
+    # https://github.com/reptilex/tesla-style-solar-power-card
+    - type: module
+      url: /local/tesla-style-solar-power-card.js
+
+media_player: !include_dir_merge_list entities/mediaplayer/
+
+modbus: !include_dir_merge_list entities/modbus/
+
+mqtt:
+  binary_sensor: !include_dir_merge_list entities/mqtt/binary_sensor/
+  sensor: !include_dir_merge_list entities/mqtt/sensor/
+  # button: !include_dir_merge_list entities/mqtt/button/
+  # switch: !include_dir_merge_list entities/mqtt/switch/
+
+notify:
+  - name: timbo_admin_gruppe
+    platform: telegram
+    chat_id: !secret timbo_admin_chatid
+  - name: haushalt_chat
+    platform: telegram
+    chat_id: !secret haushalt_chatid
+  - name: hausinfo_chat
+    platform: telegram
+    chat_id: !secret hausinfo_chatid
+
+# python_script:
+
+recorder:
+  db_url: !secret mysql_connection
+
+script: !include_dir_merge_named entities/scripts/
+
+scene: !include_dir_merge_list entities/scene/
+
+sensor: !include_dir_merge_list entities/sensor/
+
+shell_command: !include_dir_merge_named entities/shell_command/
+
+# https://github.com/fondberg/spotcast
+spotcast:
+  sp_dc: !secret spotify_main_dc
+  sp_key: !secret spotify_main_key
+  country: DE
+  accounts:
+    antje:
+      sp_dc: !secret spotify_antje_dc
+      sp_key: !secret spotify_antje_key
+    emmett:
+      sp_dc: !secret spotify_emmett_dc
+      sp_key: !secret spotify_emmett_key
+    juno:
+      sp_dc: !secret spotify_juno_dc
+      sp_key: !secret spotify_juno_key
+    timo:
+      sp_dc: !secret spotify_main_dc
+      sp_key: !secret spotify_main_key
+    buro:
+      sp_dc: !secret spotify_main_dc
+      sp_key: !secret spotify_main_key
+
+switch: !include_dir_merge_list entities/switch/
+
+telegram_bot:
+  - platform: polling
+    api_key: !secret timbo_api
+    allowed_chat_ids:
+      - !secret timbo_admin_chatid
+      - !secret haushalt_chatid
+      - !secret hausinfo_chatid
+      - !secret antje_chatid
+      - !secret timo_chatid
+
+template: !include_dir_merge_list entities/template/
+
+timer: !include_dir_merge_named entities/timer/
+
+# Text to speech
+tts:
+  - platform: google_translate

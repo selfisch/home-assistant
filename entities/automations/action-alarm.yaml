@@ -1,0 +1,27 @@
+- alias: Alarm einschalten
+  trigger:
+    - platform: homeassistant
+      event: start
+    - platform: state
+      entity_id: group.anwesenheit_devices
+  condition:
+    - condition: state
+      entity_id: group.anwesenheit_devices
+      state: 'not_home'
+  action:
+    - service: switch.turn_off
+      entity_id: switch.alarm_sperre
+
+- alias: Alarm ausschalten
+  trigger:
+    # - platform: homeassistant
+    #   event: start
+    - platform: state
+      entity_id: group.anwesenheit_devices
+  condition:
+    - condition: state
+      entity_id: group.anwesenheit_devices
+      state: 'home'
+  action:
+    - service: switch.turn_on
+      entity_id: switch.alarm_sperre

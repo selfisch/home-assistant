@@ -1,0 +1,91 @@
+- alias: tageszeit_morgens
+  trigger:
+    - platform: homeassistant
+      event: start
+    - platform: time
+      at: "5:01"
+  condition:
+    - condition: time
+      after: '05:00'
+      before: '07:59'
+  action:
+    - service: switch.turn_on
+      entity_id: switch.morgens
+    - delay: 00:00:02
+    - service: switch.turn_off
+      entity_id: switch.tagsuber
+    - delay: 00:00:02
+    - service: switch.turn_off
+      entity_id: switch.abends
+    - delay: 00:00:02
+    - service: switch.turn_off
+      entity_id: switch.nachts
+
+- alias: tageszeit_tagsüber
+  trigger:
+    - platform: homeassistant
+      event: start
+    - platform: time
+      at: "08:01"
+  condition:
+    - condition: time
+      after: '08:00'
+      before: '17:59'
+  action:
+    - service: switch.turn_off
+      entity_id: switch.morgens
+    - delay: 00:00:02
+    - service: switch.turn_on
+      entity_id: switch.tagsuber
+    - delay: 00:00:02
+    - service: switch.turn_off
+      entity_id: switch.abends
+    - delay: 00:00:02
+    - service: switch.turn_off
+      entity_id: switch.nachts
+
+- alias: tageszeit_abends
+  trigger:
+    - platform: homeassistant
+      event: start
+    - platform: time
+      at: "18:01"
+  condition:
+    - condition: time
+      after: '18:00'
+      before: '19:59'
+  action:
+    - service: switch.turn_off
+      entity_id: switch.morgens
+    - delay: 00:00:02
+    - service: switch.turn_off
+      entity_id: switch.tagsuber
+    - delay: 00:00:02
+    - service: switch.turn_on
+      entity_id: switch.abends
+    - delay: 00:00:02
+    - service: switch.turn_off
+      entity_id: switch.nachts
+
+- alias: tageszeit_nachts
+  trigger:
+    - platform: homeassistant
+      event: start
+    - platform: time
+      at: "20:01"
+  condition:
+    - condition: time
+      after: '20:00'
+      before: '04:59'
+  action:
+    - service: switch.turn_off
+      entity_id: switch.morgens
+    - delay: 00:00:02
+    - service: switch.turn_off
+      entity_id: switch.tagsuber
+    - delay: 00:00:02
+    - service: switch.turn_off
+      entity_id: switch.abends
+    - delay: 00:00:02
+    - service: switch.turn_on
+      entity_id: switch.nachts

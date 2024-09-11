@@ -1,0 +1,13 @@
+- alias: Telegraminfo Waschmaschine
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.waschmaschine_aktueller_verbrauch
+      above: 9.0
+      below: 10.0
+      for:
+        minutes: 5
+  action:
+    - service: notify.hausinfo_chat
+      data:
+        title: '*Wäsche*'
+        message: 'Waschmaschine ist fertig.'
