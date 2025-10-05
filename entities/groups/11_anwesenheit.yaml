@@ -4,3 +4,16 @@ anwesenheit_devices:
     - device_tracker.pixel_6
     - device_tracker.pixel_7
     - input_select.anwesenheit
+
+bewohner:
+  name: Bewohner
+  entities:
+    - device_tracker.pixel_6
+    - device_tracker.pixel_7
+    - device_tracker.pixel_4a_5g
+    - device_tracker.pixel_4a_5g_7
+
+#gaeste:
+#  name: Gäste
+#  entities:
+#    - 
